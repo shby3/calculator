@@ -1,0 +1,25 @@
+#main-container {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    height: 60px;
+    width: 60px;
+    font-size: 20px;
+    margin: 2px;
+}
+
+#calculator {
+    border: 2px solid rgb(42, 38, 38);
+    background-color: rgb(171, 165, 157);
+}
+
+#display {
+    height: 60px;
+    width: 275px;
+    font-size: 50px;
+    direction: rtl;
+    border-bottom: 2px solid rgb(42, 38, 38);
+    background-color: rgb(222, 216, 209);
+}
