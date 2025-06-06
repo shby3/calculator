@@ -19,7 +19,7 @@ button {
     height: 60px;
     width: 275px;
     font-size: 50px;
-    direction: rtl;
+    text-align: end;
     border-bottom: 2px solid rgb(42, 38, 38);
     background-color: rgb(222, 216, 209);
 }

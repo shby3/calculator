@@ -1,8 +1,8 @@
-let num1;
-let num2;
 let operator;
-let displayStr = "";
-let curNum = 1;
+let displayStr = "5/";
+let num1 = 0;
+let num2 = 0;
+let result = 0;
 
 const display = document.querySelector("#display");
 const numBtns = document.querySelectorAll(".num-btn");
@@ -19,9 +19,9 @@ function operate(a, b, operator) {
         return add(a, b);
     if (operator === '-')
         return subtract(a, b);
-    if (operator === '*')
+    if (operator === '×')
         return multiply(a, b);
-    if (operator === '/')
+    if (operator === '÷')
         return divide(a, b);
 }
 
@@ -30,9 +30,28 @@ for (const btn of numBtns) {
     btn.addEventListener("click", () => {
         if (displayStr.length <= 10) {
             displayStr += btn.getAttribute("num");
-            display.textContent = displayStr;
+            display.innerHTML = displayStr;
         }
     });
 }
 
 // Add event to enable operations
+for (const btn of operatorBtns) {
+    btn.addEventListener("click", () => {
+        const nums = displayStr.split(/[÷×\-+]/);
+        const sign = btn.getAttribute("sign");
+        console.log(nums);
+        console.log(sign);
+        // If there are two numbers and an operation, calculate the result.
+        // Otherwise, change the sign to the sign of the pressed operation.
+        if (nums.length == 2) {
+            num1 = parseInt(nums[0]);
+            num2 = parseInt(nums[1]);
+            result = operate(num1, num2, sign);
+            console.log(`${num1} ${sign} ${num2} = ${result}`);
+        } else {
+            displayStr += sign;
+            display.innerHTML = displayStr;
+        }
+    });
+}
