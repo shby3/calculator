@@ -16,10 +16,19 @@ button {
 }
 
 #display {
-    height: 60px;
+    height: 80px;
     width: 275px;
-    font-size: 50px;
     text-align: end;
     border-bottom: 2px solid rgb(42, 38, 38);
     background-color: rgb(222, 216, 209);
+}
+
+#expression-display {
+    height: 20px;
+    font-size: 12px;
+}
+
+#main-display {
+    font-size: 50px;
+    height: 60px;
 }

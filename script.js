@@ -1,10 +1,13 @@
-let operator;
-let displayStr = "5/";
-let num1 = 0;
-let num2 = 0;
-let result = 0;
+const MAX_DISPLAY = 13;
 
-const display = document.querySelector("#display");
+let displayStr = "";
+let expression = "";
+let nums = [0, undefined];
+let operator = undefined;
+let curNum = 0;
+
+const display = document.querySelector("#main-display");
+const expDisplay = document.querySelector("#expression-display")
 const numBtns = document.querySelectorAll(".num-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
 
@@ -28,9 +31,16 @@ function operate(a, b, operator) {
 // Add event to display clicked numbers
 for (const btn of numBtns) {
     btn.addEventListener("click", () => {
-        if (displayStr.length <= 10) {
+        // Ignore leading zeroes
+        if (displayStr === "0")
+            displayStr = "";
+        if (displayStr.length <= MAX_DISPLAY) {
             displayStr += btn.getAttribute("num");
+            if (displayStr !== "0")
+                expression += btn.getAttribute("num");
+            nums[curNum] = parseInt(displayStr);
             display.innerHTML = displayStr;
+            expDisplay.innerHTML = expression;
         }
     });
 }
@@ -38,20 +48,20 @@ for (const btn of numBtns) {
 // Add event to enable operations
 for (const btn of operatorBtns) {
     btn.addEventListener("click", () => {
-        const nums = displayStr.split(/[÷×\-+]/);
-        const sign = btn.getAttribute("sign");
-        console.log(nums);
-        console.log(sign);
-        // If there are two numbers and an operation, calculate the result.
-        // Otherwise, change the sign to the sign of the pressed operation.
-        if (nums.length == 2) {
-            num1 = parseInt(nums[0]);
-            num2 = parseInt(nums[1]);
-            result = operate(num1, num2, sign);
-            console.log(`${num1} ${sign} ${num2} = ${result}`);
+        const prevOperator = operator;
+        operator = btn.getAttribute("sign");
+        // Add/replace the operation if the expression is incomplete.
+        // Otherwise, calculate the expression.
+        if (nums[1] === undefined) {
+            curNum = 1;
         } else {
-            displayStr += sign;
-            display.innerHTML = displayStr;
+            nums[0] = operate(nums[0], nums[1], prevOperator);
+            nums[1] = undefined;
         }
+        // Make main display blank and update the expression display.
+        displayStr = "";
+        display.innerHTML = displayStr;
+        expression = nums[0] + operator;
+        expDisplay.innerHTML = expression;
     });
 }
