@@ -53,12 +53,13 @@ function updateDisplay() {
     expDisplay.innerHTML = expDisplayStr;
 }
 
-// Function to convert "*" to "×" and "/" to "÷"
+// Function to convert "*" to "×" and "/" to "÷" if applicable.
 function convertOperator(key) {
     if (key === "*")
         return "×";
     if (key === "/")
         return "÷";
+    return key;
 }
 
 // Calculate using a full expression and store that expression in expDisplayStr.
@@ -113,6 +114,9 @@ function pressDecimal() {
 function pressEquals() {
     if (curNum === 0)
         return;
+    // Don't calculate if expression divides by zero
+    if (divideByZero())
+        return;
     calculate();
     // Result becomes the new first number. Reset the operation and second number.
     resetExpression(result);
@@ -124,6 +128,16 @@ function clear() {
     expDisplayStr = "";
     resetExpression();
     updateDisplay();
+}
+
+// Function to check if the user is trying to divide by zero. Display a message and
+// return true if they are. Otherwise, return false.
+function divideByZero() {
+    if (nums[1] === "0" && operator === "÷") {
+        alert("Stop! You can't divide by zero.");
+        return true;
+    }
+    return false;
 }
 
 // Add event to display clicked numbers on calculator
