@@ -113,7 +113,8 @@ function pressDecimal() {
 
 // Function for when Enter or = key pressed or = button clicked.
 function pressEquals() {
-    if (curNum === 0)
+    // Don't calculate if expression is incomplete
+    if (nums[1] === "")
         return;
     // Don't calculate if expression divides by zero
     if (divideByZero())
