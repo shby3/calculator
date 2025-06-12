@@ -15,6 +15,7 @@ const operatorBtns = document.querySelectorAll(".operator-btn");
 const clearBtn = document.querySelector(".clear-btn");
 const equalsBtn = document.querySelector(".equals-btn");
 const decimalBtn = document.querySelector(".decimal-btn");
+const deleteBtn = document.querySelector(".delete-btn");
 
 
 const add = (a, b) => a + b;
@@ -140,6 +141,22 @@ function divideByZero() {
     return false;
 }
 
+// Function to delete the last pressed/clicked value from the expression.
+function deleteFromExpression() {
+    // Delete the operand if it was the last value entered. Set curNum back to account for that.
+    // If the expression is a single digit, change it to "0" instead of deleting that digit.
+    if (operator !== "" && nums[1] === "") {
+        operator = "";
+        curNum = 0;
+    } else if (curNum === 0 && nums[0].length === 1) {
+        nums[0] = "0";
+        
+    } else {
+        nums[curNum] = nums[curNum].slice(0, -1);
+    }
+    updateDisplay();
+}
+
 // Add event to display clicked numbers on calculator
 for (const btn of numBtns) {
     btn.addEventListener("click", () => pressNumber(btn));
@@ -158,6 +175,9 @@ equalsBtn.addEventListener("click", pressEquals);
 // Add event for clicking the clear button
 clearBtn.addEventListener("click", clear);
 
+// Add event for clicking the delete button
+deleteBtn.addEventListener("click", deleteFromExpression);
+
 // When keys with associated buttons are clicked, behave as if they were clicked
 document.addEventListener("keydown", (e) => {
     let key = e.key;
@@ -173,4 +193,6 @@ document.addEventListener("keydown", (e) => {
         return pressDecimal();
     if (key === "=" || key === "Enter")
         return pressEquals();
+    if (key === "Backspace" || key === "Delete")
+        return deleteFromExpression();
 });
