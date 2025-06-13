@@ -17,6 +17,7 @@ button {
 
 #display {
     width: 360px;
+    height: 200px;
     text-align: end;
     border-bottom: 2px solid rgb(42, 38, 38);
     background-color: rgb(222, 216, 209);

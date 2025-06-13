@@ -1,15 +1,20 @@
-const MAX_DISPLAY = 13;
+const MAX_DISPLAY = 12;
 const MAX_DECIMALS = 2;
+const MAX_INT = 999999999999;
+const MIN_INT = -99999999999;
+const MIN_FLOAT = -99999999.99;
 
 let nums = ["0", ""];
 let operator = "";
 let curNum = 0;
 let result = "";
-let displayStr = "";
 let expDisplayStr = "";
 
 const display = document.querySelector("#main-display");
-const expDisplay = document.querySelector("#expression-display")
+const expDisplay = document.querySelector("#expression-display");
+const num1Display = document.querySelector("#num1-display");
+const operandDisplay = document.querySelector("#operand-display");
+const num2Display = document.querySelector("#num2-display");
 const numBtns = document.querySelectorAll(".num-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
 const clearBtn = document.querySelector(".clear-btn");
@@ -36,11 +41,14 @@ function operate(a, b, operator) {
         return divide(a, b);
 }
 
-// Takes a string number and rounds it to the nearest MAX_DECIMALS places.
+// Takes a string number and rounds it to the nearest MAX_DECIMALS places, or
+// rounded up to the nearest integer if it is less than MIN_FLOAT.
 function roundNum(num) {
-        num = parseFloat(num);
-        num = Math.round(num * 10 ** MAX_DECIMALS) / (10 ** MAX_DECIMALS);
-        return "" + num;
+    num = parseFloat(num);
+    if (num < MIN_FLOAT)
+        return "" + Math.ceil(num);
+    num = Math.round(num * 10 ** MAX_DECIMALS) / (10 ** MAX_DECIMALS);
+    return "" + num;
 }
 
 // Update the display for the calculator
@@ -63,10 +71,24 @@ function convertOperator(key) {
     return key;
 }
 
+// Check the length of result. Return true and alert the user if the result is too long.
+// Otherwise, return false.
+function checkResultLength(){
+    if (result.length > MAX_DISPLAY) {
+        alert(`${result} does not fit on calc display.`);
+        return true;
+    } 
+    return false;
+}
+
 // Calculate using a full expression and store that expression in expDisplayStr.
+// If the result is too long, set it to 0.
 function calculate() {
     result = roundNum(operate(nums[0], nums[1], operator));
     expDisplayStr = `${nums[0]}${operator}${nums[1]}=${result}`;
+        if (checkResultLength()) {
+        result = "0";
+    }
 }
 
 // Reset nums, operation, and curNum to default values or updated ones.
@@ -106,6 +128,8 @@ function pressOperator(btn=null, key=null) {
 // Function for when a decimal is clicked or the . key is pressed
 function pressDecimal() {
     if (!nums[curNum].includes(".") && nums[curNum].length <= MAX_DISPLAY) {
+        if (nums[curNum] === "")
+            nums[curNum] = "0";
         nums[curNum] += ".";
         updateDisplay();
     }
@@ -135,7 +159,8 @@ function clear() {
 // Function to check if the user is trying to divide by zero. Display a message and
 // return true if they are. Otherwise, return false.
 function divideByZero() {
-    if (nums[1] === "0" && operator === "÷") {
+    const num2isZero = nums[1].charAt(0) === "0" && !nums[1].match(/[1-9]/);
+    if (num2isZero && operator === "÷") {
         alert("Stop! You can't divide by zero.");
         return true;
     }
@@ -146,12 +171,14 @@ function divideByZero() {
 function deleteFromExpression() {
     // Delete the operand if it was the last value entered. Set curNum back to account for that.
     // If the expression is a single digit, change it to "0" instead of deleting that digit.
+    // If the number is a single negative digit, delete the negative sign as well.
     if (operator !== "" && nums[1] === "") {
         operator = "";
         curNum = 0;
     } else if (curNum === 0 && nums[0].length === 1) {
         nums[0] = "0";
-        
+    } else if (nums[curNum].length === 2 && nums[curNum].charAt(0) === "-"){
+        nums[curNum] = "0";
     } else {
         nums[curNum] = nums[curNum].slice(0, -1);
     }
