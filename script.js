@@ -1,4 +1,4 @@
-const MAX_DISPLAY = 12;
+const MAX_DISPLAY = 13;
 const MAX_DECIMALS = 2;
 const MAX_INT = 999999999999;
 const MIN_INT = -99999999999;
@@ -18,6 +18,7 @@ const clearBtn = document.querySelector(".clear-btn");
 const equalsBtn = document.querySelector(".equals-btn");
 const decimalBtn = document.querySelector(".decimal-btn");
 const deleteBtn = document.querySelector(".delete-btn");
+const negativeBtn = document.querySelector(".negative-btn");
 
 
 const add = (a, b) => a + b;
@@ -51,7 +52,7 @@ function roundNum(num) {
 // Update the display for the calculator
 function updateDisplay() {
     const expLength = nums[0].length + operator.length + nums[1].length;
-    displayStr = (expLength >= MAX_DISPLAY ? 
+    displayStr = (expLength > MAX_DISPLAY ? 
         `${nums[0]}<br>${operator}<br>\n${nums[1]}` :
         `${nums[0]}${operator}${nums[1]}`);
     display.innerHTML = displayStr;
@@ -103,7 +104,7 @@ function pressNumber(btn=null, key=null) {
     // Ignore leading zeroes
     if (nums[curNum] === "0")
         nums[curNum] = "";
-    if (nums[curNum].length <= MAX_DISPLAY) {
+    if (nums[curNum].length < MAX_DISPLAY) {
         nums[curNum] += key;
         updateDisplay();
     }
@@ -124,7 +125,7 @@ function pressOperator(btn=null, key=null) {
 
 // Function for when a decimal is clicked or the . key is pressed
 function pressDecimal() {
-    if (!nums[curNum].includes(".") && nums[curNum].length <= MAX_DISPLAY) {
+    if (!nums[curNum].includes(".") && nums[curNum].length < MAX_DISPLAY) {
         if (nums[curNum] === "")
             nums[curNum] = "0";
         nums[curNum] += ".";
@@ -182,6 +183,21 @@ function deleteFromExpression() {
     updateDisplay();
 }
 
+// Function to make the current number negative/positive (multiply it by -1).
+// Don't add a negative sign if it would overflow the display, the current number
+// is empty, or the current number is "0".
+function makeNegative() {
+    if (nums[curNum] === "" || nums[curNum] === "0")
+        return;
+    if (nums[curNum].charAt(0) != "-") {
+        if (nums[curNum].length < MAX_DISPLAY)
+            nums[curNum] = "-" + nums[curNum];
+    } else {
+        nums[curNum] = nums[curNum].slice(1);
+    }
+    updateDisplay();
+}
+
 // Add event to display clicked numbers on calculator
 for (const btn of numBtns) {
     btn.addEventListener("click", () => pressNumber(btn));
@@ -202,6 +218,9 @@ clearBtn.addEventListener("click", clear);
 
 // Add event for clicking the delete button
 deleteBtn.addEventListener("click", deleteFromExpression);
+
+// Add event for clicking the negative button
+negativeBtn.addEventListener("click", makeNegative);
 
 // When keys with associated buttons are clicked, behave as if they were clicked
 document.addEventListener("keydown", (e) => {
