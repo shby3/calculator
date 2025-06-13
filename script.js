@@ -12,9 +12,6 @@ let expDisplayStr = "";
 
 const display = document.querySelector("#main-display");
 const expDisplay = document.querySelector("#expression-display");
-const num1Display = document.querySelector("#num1-display");
-const operandDisplay = document.querySelector("#operand-display");
-const num2Display = document.querySelector("#num2-display");
 const numBtns = document.querySelectorAll(".num-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
 const clearBtn = document.querySelector(".clear-btn");
