@@ -9,39 +9,42 @@
 <body>
     <div id="main-container">
     <div id="calculator">
-        <div id="display">
-            <div id="expression-display"></div>
-            <div id="main-display">0</div>
+        <div class="display-container">
+            <div id="expression-display" class="display"></div>
+            <div id="main-display" class="display">0</div>
         </div>
-        <div class="row">
-            <button class="num-btn" num="1">1</button>
-            <button class="num-btn" num="2">2</button>
-            <button class="num-btn" num="3">3</button>
-            <button class="operator-btn" sign="÷">÷</button>
-        <div>
-        <div class="row">
-            <button class="num-btn" num="4">4</button>
-            <button class="num-btn" num="5">5</button>
-            <button class="num-btn" num="6">6</button>
-            <button class="operator-btn" sign="×">×</button>
-        <div>
-        <div class="row">
-            <button class="num-btn" num="7">7</button>
-            <button class="num-btn" num="8">8</button>
-            <button class="num-btn" num="9">9</button>
-            <button class="operator-btn" sign="-">-</button>
-        <div>
-        <div class="row">
-            <button class="num-btn" num="0">0</button>
-            <button class="decimal-btn">.</button>
-            <button class="equals-btn">=</button>
-            <button class="operator-btn" sign="+">+</button>
-        <div>
-        <div class="row">
-            <button class="clear-btn">C</button>
-            <button class="delete-btn">⌫</button>
-            <button class="negative-btn">±</button>
-        <div>
+        <div class="button-container">
+            <div class="row">
+                <button class="num-btn" num="1">1</button>
+                <button class="num-btn" num="2">2</button>
+                <button class="num-btn" num="3">3</button>
+                <button class="operator-btn" sign="÷">÷</button>
+            </div>
+            <div class="row">
+                <button class="num-btn" num="4">4</button>
+                <button class="num-btn" num="5">5</button>
+                <button class="num-btn" num="6">6</button>
+                <button class="operator-btn" sign="×">×</button>
+            </div>
+            <div class="row">
+                <button class="num-btn" num="7">7</button>
+                <button class="num-btn" num="8">8</button>
+                <button class="num-btn" num="9">9</button>
+                <button class="operator-btn" sign="-">-</button>
+            </div>
+            <div class="row">
+                <button class="num-btn" num="0">0</button>
+                <button class="decimal-btn char-btn">.</button>
+                <button class="negative-btn char-btn">±</button>
+                <button class="operator-btn" sign="+">+</button>
+            </div>
+            <div class="row">
+                <button class="clear-btn removal-btn">C</button>
+                <button class="delete-btn removal-btn">⌫</button>
+                <button class="equals-btn">=</button>
+                <button class="empty-btn"></button>
+            </div>
+        </div>
     </div>
     </div>
 <script src="script.js"></script>

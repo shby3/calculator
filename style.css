@@ -1,32 +1,73 @@
 #main-container {
     display: flex;
     justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
 }
 
 button {
-    height: 75px;
-    width: 75px;
+    border-radius: 10px;
+    height: 78px;
+    width: 78px;
     font-size: 20px;
-    margin: 6px;
+    margin: 5px 8px;
+}
+
+.removal-btn {
+    background-color: rgb(107, 80, 80);
+}
+
+.num-btn {
+    background-color: rgb(118, 132, 128);
+}
+
+.char-btn {
+    background-color: rgb(138, 143, 144);
+}
+
+.operator-btn {
+    background-color: rgb(153, 155, 98);
+}
+
+.equals-btn {
+    background-color: rgb(173, 142, 76);
+}
+
+.empty-btn {
+    visibility: hidden;
+}
+
+.button-container {
+    background-color: rgb(73, 79, 73);
 }
 
 #calculator {
-    border: 2px solid rgb(42, 38, 38);
-    background-color: rgb(171, 165, 157);
+    border-radius: 10px;
+    border: 10px solid rgb(42, 38, 38);
+    background-color: rgb(42, 38, 38);
 }
 
-#display {
-    width: 360px;
+.display-container {
+    border-radius: 5px 5px 0px 0px;
+    width: 400px;
     height: 200px;
     text-align: end;
-    border-bottom: 2px solid rgb(42, 38, 38);
-    background-color: rgb(222, 216, 209);
+    border-bottom: 10px solid rgb(42, 38, 38);
+    background-color: rgb(105, 131, 107);
     overflow-wrap: break-word;
+}
+
+.display {
+    padding: 4px;
 }
 
 #expression-display {
     height: 20px;
-    width: 360px;
+    margin-top: 2px;
     font-size: 12px;
 }
 
