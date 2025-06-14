@@ -52,7 +52,7 @@ function roundNum(num) {
 // Update the display for the calculator
 function updateDisplay() {
     const expLength = nums[0].length + operator.length + nums[1].length;
-    displayStr = (expLength > MAX_DISPLAY ? 
+    const displayStr = (expLength > MAX_DISPLAY ? 
         `${nums[0]}<br>${operator}<br>\n${nums[1]}` :
         `${nums[0]}${operator}${nums[1]}`);
     display.innerHTML = displayStr;
